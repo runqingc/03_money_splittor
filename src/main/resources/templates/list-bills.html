@@ -9,14 +9,14 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
-  <title>Employee Directory</title>
+  <title>S3314 Bills Tracking</title>
 </head>
 
 <body>
 
 <div class="container">
 
-  <h3>猛男妙妙屋 账目记录</h3>
+  <h3>猛男妙妙屋 账目记录(测试版)</h3>
   <hr>
 
   <table class="table table-bordered table-striped">
@@ -25,15 +25,23 @@
       <th>ID</th>
       <th>名称</th>
       <th>金额</th>
+      <th>付款人</th>
+      <th>分摊方式</th>
+      <th>是否结清</th>
+      <th>付款日期</th>
     </tr>
     </thead>
 
     <tbody>
     <tr th:each="tempEmployee : ${bills}">
 
-      <td th:text="${tempEmployee.bill_id}" />
+      <td th:text="${tempEmployee.billId}" />
       <td th:text="${tempEmployee.billName}" />
       <td th:text="${tempEmployee.amount}" />
+      <td th:text="${tempEmployee.payer}" />
+      <td th:text="${tempEmployee.splitBetween}" />
+      <td th:text="${tempEmployee.complete}" />
+      <td th:text="${tempEmployee.billDate}" />
 
     </tr>
     </tbody>

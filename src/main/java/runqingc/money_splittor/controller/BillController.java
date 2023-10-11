@@ -1,6 +1,7 @@
 package runqingc.money_splittor.controller;
 
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,10 @@ public class BillController {
     @GetMapping("/list")
     public String listBills(Model theModel){
 
-        List<Bill> theBills = billService.findAll();
+        Sort sort = Sort.by(Sort.Order.desc("billId"));
+
+        List<Bill> theBills = billService.findAll(sort);
+
 
         theModel.addAttribute("bills", theBills);
 

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
-
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="bill")
@@ -14,7 +12,7 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bill_id")
-    private int bill_id;
+    private int billId;
 
     @Column(name="bill_name")
     private String billName;
@@ -41,8 +39,8 @@ public class Bill {
 
 
     // define constructor
-    public Bill(int bill_id, String billName, double amount, String payer, String splitBetween, Boolean complete, String billDate) {
-        this.bill_id = bill_id;
+    public Bill(int billId, String billName, double amount, String payer, String splitBetween, Boolean complete, String billDate) {
+        this.billId = billId;
         this.billName = billName;
         this.amount = amount;
         this.payer = payer;
@@ -52,12 +50,12 @@ public class Bill {
     }
 
     // define getter and setter
-    public int getBill_id() {
-        return bill_id;
+    public int getBillId() {
+        return billId;
     }
 
-    public void setBill_id(int bill_id) {
-        this.bill_id = bill_id;
+    public void setBillId(int bill_id) {
+        this.billId = bill_id;
     }
 
     public String getBillName() {
@@ -112,7 +110,7 @@ public class Bill {
     @Override
     public String toString() {
         return "Bill{" +
-                "bill_id=" + bill_id +
+                "bill_id=" + billId +
                 ", billName='" + billName + '\'' +
                 ", amount=" + amount +
                 ", payer='" + payer + '\'' +
