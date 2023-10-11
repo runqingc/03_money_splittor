@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+  <title>Save Bill</title>
+
+
+</head>
+
+<body>
+      <div class="container">
+
+        <h3>编辑条目</h3>
+
+        <hr>
+
+        <p class="h4 mb-4">账单</p>
+
+        <form action="#" th:action="@{/bills/save}"
+        th:object="${bill}"
+        method="POST">
+
+          <input type="text" th:field="*{billName}"
+                 class="form-control mb-4 w-25"
+                 placeholder="账单名称">
+
+
+          <button type="submit"
+                  class="btn btn-info col-2">确定</button>
+
+        </form>
+
+        <hr>
+        <a th:href="@{/bills/list}">返回账目列表</a>
+
+
+      </div>
+
+</body>
+
+
+</html>

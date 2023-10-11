@@ -9,4 +9,6 @@ public interface BillService {
 
     List<Bill> findAll(Sort sort);
 
+    void save(Bill theBill);
+
 }

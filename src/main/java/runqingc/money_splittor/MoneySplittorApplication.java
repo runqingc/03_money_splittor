@@ -10,4 +10,6 @@ public class MoneySplittorApplication {
 		SpringApplication.run(MoneySplittorApplication.class, args);
 	}
 
+
+
 }

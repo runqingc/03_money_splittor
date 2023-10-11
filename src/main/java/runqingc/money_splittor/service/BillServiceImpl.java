@@ -23,5 +23,10 @@ public class BillServiceImpl implements BillService{
         return billRepository.findAll(sort);
     }
 
+    @Override
+    public void save(Bill theBill) {
+        billRepository.save(theBill);
+    }
+
 
 }

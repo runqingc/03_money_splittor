@@ -19,12 +19,18 @@
   <h3>猛男妙妙屋 账目记录(测试版)</h3>
   <hr>
 
+<!--  Add button for insert-->
+  <a th:href="@{/bills/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+    新建 +
+  </a>
+
+
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
       <th>ID</th>
       <th>名称</th>
-      <th>金额</th>
+      <th>金额(USD)</th>
       <th>付款人</th>
       <th>分摊方式</th>
       <th>是否结清</th>
