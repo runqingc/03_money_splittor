@@ -1,67 +1,63 @@
 package runqingc.money_splittor.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "bill1")
+@EntityListeners(AuditingEntityListener.class)
+@Table(name="bill")
 public class Bill {
-
     // define fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BillID")
-    private Integer billID;
+    @Column(name = "bill_id")
+    private int bill_id;
 
-
-    @Column(name = "BillName")
+    @Column(name="bill_name")
     private String billName;
 
-    @Column(name = "Amount")
-    private Double amount;
+    @Column(name="amount")
+    private double amount;
 
-    @Column(name = "Payer")
+    @Column(name="payer")
     private String payer;
 
-    @Column(name = "SplitBetween")
+    @Column(name="split_between")
     private String splitBetween;
 
-    @Column(name = "SplitBetween")
-    private Boolean isSplit;
+    @Column(name="complete")
+    private Boolean complete;
 
-    @Column(name = "BillDate")
-    private Timestamp billDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name="bill_date")
+    @CreatedDate
+    private String billDate;
 
-    // define constructor
     public Bill() {
     }
 
-    public Bill(Integer billId, String billName, Double amount, String payer, String splitBetween) {
-        this.billID = billId;
-        this.billName = billName;
-        this.amount = amount;
-        this.payer = payer;
-        this.splitBetween = splitBetween;
-    }
 
-    public Bill(Integer billId, String billName, Double amount, String payer, String splitBetween, Boolean isSplit, Timestamp billDate) {
-        this.billID = billId;
+    // define constructor
+    public Bill(int bill_id, String billName, double amount, String payer, String splitBetween, Boolean complete, String billDate) {
+        this.bill_id = bill_id;
         this.billName = billName;
         this.amount = amount;
         this.payer = payer;
         this.splitBetween = splitBetween;
-        this.isSplit = isSplit;
+        this.complete = complete;
         this.billDate = billDate;
     }
 
     // define getter and setter
-    public Integer getBillID() {
-        return billID;
+    public int getBill_id() {
+        return bill_id;
     }
 
-    public void setBillID(Integer billId) {
-        this.billID = billId;
+    public void setBill_id(int bill_id) {
+        this.bill_id = bill_id;
     }
 
     public String getBillName() {
@@ -72,11 +68,11 @@ public class Bill {
         this.billName = billName;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -96,34 +92,34 @@ public class Bill {
         this.splitBetween = splitBetween;
     }
 
-    public Boolean getSplit() {
-        return isSplit;
+    public Boolean getComplete() {
+        return complete;
     }
 
-    public void setSplit(Boolean split) {
-        isSplit = split;
+    public void setComplete(Boolean complete) {
+        this.complete = complete;
     }
 
-    public Timestamp getBillDate() {
+    public String getBillDate() {
         return billDate;
     }
 
-    public void setBillDate(Timestamp billDate) {
+    public void setBillDate(String billDate) {
         this.billDate = billDate;
     }
 
     // define toString methods
-
     @Override
     public String toString() {
         return "Bill{" +
-                "billId=" + billID +
+                "bill_id=" + bill_id +
                 ", billName='" + billName + '\'' +
                 ", amount=" + amount +
                 ", payer='" + payer + '\'' +
                 ", splitBetween='" + splitBetween + '\'' +
-                ", isSplit=" + isSplit +
-                ", billDate=" + billDate +
+                ", complete=" + complete +
+                ", billDate='" + billDate + '\'' +
                 '}';
     }
+
 }
