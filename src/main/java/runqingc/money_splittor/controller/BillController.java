@@ -80,4 +80,13 @@ public class BillController {
         return "redirect:/bills/list";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("billId")int theId){
+        // delete the bill item
+        billService.deleteById(theId);
+
+        //redirect to the /bills/list
+        return "redirect:/bills/list";
+    }
+
 }

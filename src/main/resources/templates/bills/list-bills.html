@@ -52,7 +52,10 @@
       <td>
         <a th:href="@{/bills/showFormForUpdate(billId=${tempBill.billId})}"
            class="btn btn-info btn-sm">编辑</a>
-<!--        <a th:href="">删除</a>-->
+        <a th:href="@{/bills/delete(billId=${tempBill.billId})}"
+           class="btn btn-danger btn-sm"
+           onclick="if (!(confirm('你确定要删掉这一个条目吗?'))) return false"
+        >删除</a>
       </td>
 
     </tr>
