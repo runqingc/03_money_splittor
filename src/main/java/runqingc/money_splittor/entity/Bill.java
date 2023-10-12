@@ -21,7 +21,7 @@ public class Bill {
     private String billName;
 
     @Column(name="amount")
-    private double amount;
+    private Double amount;
 
     @Column(name="payer")
     private String payer;
@@ -38,6 +38,7 @@ public class Bill {
     private String billDate;
 
     public Bill() {
+        this.amount=null;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String date = df.format(new Date());//
         this.complete = false;
@@ -46,7 +47,7 @@ public class Bill {
 
 
     // define constructor
-    public Bill(int billId, String billName, double amount, String payer, String splitBetween, Boolean complete, String billDate) {
+    public Bill(int billId, String billName, Double amount, String payer, String splitBetween, Boolean complete, String billDate) {
         this.billId = billId;
         this.billName = billName;
         this.amount = amount;
@@ -73,11 +74,11 @@ public class Bill {
         this.billName = billName;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
