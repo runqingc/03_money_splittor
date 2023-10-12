@@ -35,6 +35,7 @@
       <th>分摊方式</th>
       <th>是否结清</th>
       <th>付款日期</th>
+      <th>操作</th>
     </tr>
     </thead>
 
@@ -48,6 +49,10 @@
       <td th:text="${tempEmployee.splitBetween}" />
       <td th:text="${tempEmployee.complete}" />
       <td th:text="${tempEmployee.billDate}" />
+      <td>
+<!--        <a th:href="">编辑</a>-->
+<!--        <a th:href="">删除</a>-->
+      </td>
 
     </tr>
     </tbody>

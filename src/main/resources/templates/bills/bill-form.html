@@ -21,15 +21,41 @@
 
         <hr>
 
-        <p class="h4 mb-4">账单</p>
+        <p class="h4 mb-4">Bill</p>
 
         <form action="#" th:action="@{/bills/save}"
         th:object="${bill}"
         method="POST">
 
-          <input type="text" th:field="*{billName}"
-                 class="form-control mb-4 w-25"
-                 placeholder="账单名称">
+            <input type="text" th:field="*{billName}"
+                   class="form-control mb-4 w-25"
+                   placeholder="Enter bill name">
+
+
+            <input type="text" th:field="*{amount}"
+                   class="form-control mb-4 w-25"
+                   placeholder="Enter amount">
+
+
+            <select th:field="*{payer}"
+                    class="form-control mb-4 w-25">
+              <option th:each="tempPayer: ${payers}" th:value="${tempPayer}"
+                      th:text="${tempPayer}"></option>
+            </select>
+
+            <select th:field="*{splitBetween}"
+                    class="form-control mb-4 w-25">
+                <option th:each="tempSplitBetween: ${splitBetweens}" th:value="${tempSplitBetween}"
+                        th:text="${tempSplitBetween}"></option>
+            </select>
+
+            <input type="text" th:field="*{complete}"
+                   class="form-control mb-4 w-25"
+                   placeholder="is it complete">
+
+            <input type="text" th:field="*{billDate}"
+                   class="form-control mb-4 w-25"
+                   placeholder="Enter date">
 
 
           <button type="submit"

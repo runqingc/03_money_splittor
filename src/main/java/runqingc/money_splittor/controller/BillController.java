@@ -1,6 +1,7 @@
 package runqingc.money_splittor.controller;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/bills")
 public class BillController {
+
+    @Value("Chose Payer,CRQ,JMH,SSC")
+    private List<String> payers;
+
+    @Value("Chose Split between,CRQ,JHM,SSC,FOOD,RENT,SSC&CRQ,CRQ&JMH,SSC&JMH")
+    private List<String> splitBetweens;
 
     private BillService billService;
 
@@ -43,6 +50,10 @@ public class BillController {
         Bill theBill = new Bill();
 
         theModel.addAttribute(theBill);
+
+        theModel.addAttribute("payers", payers);
+
+        theModel.addAttribute("splitBetweens", splitBetweens);
 
         return "bills/bill-form";
     }

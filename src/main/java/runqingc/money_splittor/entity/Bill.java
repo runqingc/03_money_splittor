@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="bill")
@@ -35,6 +38,10 @@ public class Bill {
     private String billDate;
 
     public Bill() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String date = df.format(new Date());//
+        this.complete = false;
+        this.billDate = date;
     }
 
 
