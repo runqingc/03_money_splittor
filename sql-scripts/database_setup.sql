@@ -1,37 +1,19 @@
-# DATABASE DEFINITION
-USE bills;
+CREATE DATABASE  IF NOT EXISTS `bill_tracker`;
+USE `bill_tracker`;
 
-CREATE TABLE bill1(
-    BillID INT AUTO_INCREMENT PRIMARY KEY,
-    BillName VARCHAR(50),
-    Amount double,
-    Payer VARCHAR(10),
-    SplitBetween VARCHAR(10),
-    IsSplit boolean DEFAULT false,
-    BillDate timestamp default (CURRENT_TIMESTAMP)
-);
+--
+-- Table structure for table `bill`
+--
 
-CREATE TABLE rentRatio(
-    Name VARCHAR(20) PRIMARY KEY ,
-    Ratio double,
-    Remark VARCHAR(50)
-);
+DROP TABLE IF EXISTS `bill`;
 
-INSERT INTO rentRatio(Name, Ratio) VALUES
-  ('SSC', '0.37'),
-  ('CRQ', '0.32'),
-  ('JMH', '0.31');
-
-CREATE TABLE foodRatio(
-    Name VARCHAR(20) PRIMARY KEY ,
-    Ratio double,
-    Remark VARCHAR(50)
-);
-
-INSERT INTO foodRatio(Name, Ratio) VALUES
-  ('SSC', '0.3'),
-  ('CRQ', '0.4'),
-  ('JMH', '0.3');
-
-
+CREATE TABLE bill(
+                     bill_id INT AUTO_INCREMENT PRIMARY KEY,
+                     bill_name VARCHAR(50),
+                     amount double,
+                     payer VARCHAR(10),
+                     split_between VARCHAR(10),
+                     complete boolean DEFAULT false,
+                     bill_date timestamp not null default (CURRENT_TIMESTAMP)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
