@@ -7,6 +7,7 @@ import runqingc.money_splittor.dao.BillRepository;
 import runqingc.money_splittor.entity.Bill;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BillServiceImpl implements BillService{
@@ -26,6 +27,25 @@ public class BillServiceImpl implements BillService{
     @Override
     public void save(Bill theBill) {
         billRepository.save(theBill);
+    }
+
+    @Override
+    public Bill findById(int theId) {
+        Optional<Bill> result = billRepository.findById(theId);
+
+        Bill theBill = null;
+
+        if(result.isPresent()){
+            theBill = result.get();
+        }else{
+            throw new RuntimeException("Did not find bill id : " + theId);
+        }
+        return theBill;
+    }
+
+    @Override
+    public void deleteById(int theId) {
+        billRepository.deleteById(theId);
     }
 
 

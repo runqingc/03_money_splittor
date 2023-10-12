@@ -11,4 +11,9 @@ public interface BillService {
 
     void save(Bill theBill);
 
+    Bill findById(int theId);
+
+    void deleteById(int theId);
+
+
 }

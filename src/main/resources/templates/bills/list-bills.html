@@ -40,17 +40,18 @@
     </thead>
 
     <tbody>
-    <tr th:each="tempEmployee : ${bills}">
+    <tr th:each="tempBill : ${bills}">
 
-      <td th:text="${tempEmployee.billId}" />
-      <td th:text="${tempEmployee.billName}" />
-      <td th:text="${tempEmployee.amount}" />
-      <td th:text="${tempEmployee.payer}" />
-      <td th:text="${tempEmployee.splitBetween}" />
-      <td th:text="${tempEmployee.complete}" />
-      <td th:text="${tempEmployee.billDate}" />
+      <td th:text="${tempBill.billId}" />
+      <td th:text="${tempBill.billName}" />
+      <td th:text="${tempBill.amount}" />
+      <td th:text="${tempBill.payer}" />
+      <td th:text="${tempBill.splitBetween}" />
+      <td th:text="${tempBill.complete}" />
+      <td th:text="${tempBill.billDate}" />
       <td>
-<!--        <a th:href="">编辑</a>-->
+        <a th:href="@{/bills/showFormForUpdate(billId=${tempBill.billId})}"
+           class="btn btn-info btn-sm">编辑</a>
 <!--        <a th:href="">删除</a>-->
       </td>
 
