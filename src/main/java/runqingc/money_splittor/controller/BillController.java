@@ -18,7 +18,7 @@ public class BillController {
     @Value("Chose Payer,CRQ,JMH,SSC")
     private List<String> payers;
 
-    @Value("Chose Split between,CRQ,JHM,SSC,FOOD,RENT,SSC&CRQ,CRQ&JMH,SSC&JMH")
+    @Value("Chose Split between,CRQ,JMH,SSC,FOOD,RENT,SSC&CRQ,CRQ&JMH,SSC&JMH")
     private List<String> splitBetweens;
 
     private BillService billService;
