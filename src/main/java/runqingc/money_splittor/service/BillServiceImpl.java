@@ -25,6 +25,16 @@ public class BillServiceImpl implements BillService{
     }
 
     @Override
+    public List<Bill> findByCompleteFalse(Sort sort) {
+        return billRepository.findByCompleteFalse(sort) ;
+    }
+
+    @Override
+    public List<Bill> findByCompleteTrue(Sort sort) {
+        return billRepository.findByCompleteTrue(sort);
+    }
+
+    @Override
     public void save(Bill theBill) {
         billRepository.save(theBill);
     }

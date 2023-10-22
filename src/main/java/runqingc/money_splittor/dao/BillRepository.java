@@ -10,4 +10,9 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
 
     // got all the code for free!
 
+    List<Bill> findByCompleteFalse(Sort sort);
+
+    public List<Bill> findByCompleteTrue(Sort sort);
+
+
 }

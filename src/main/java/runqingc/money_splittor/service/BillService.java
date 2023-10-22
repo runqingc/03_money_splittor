@@ -9,6 +9,10 @@ public interface BillService {
 
     List<Bill> findAll(Sort sort);
 
+    List<Bill> findByCompleteFalse(Sort sort);
+
+    List<Bill> findByCompleteTrue(Sort sort);
+
     void save(Bill theBill);
 
     Bill findById(int theId);

@@ -30,11 +30,15 @@ public class BillController {
     @GetMapping("/list")
     public String listBills(Model theModel){
 
-        Sort sort = Sort.by(Sort.Order.desc("billId"));
+        Sort sort = Sort.by(Sort.Order.desc("billDate"));
 
-        List<Bill> theBills = billService.findAll(sort);
+        List<Bill> theBills = billService.findByCompleteFalse(sort);
 
         theModel.addAttribute("bills", theBills);
+
+        List<Bill> historyBills = billService.findByCompleteTrue(sort);
+
+        theModel.addAttribute("historyBills", historyBills);
 
         return "bills/list-bills";
 
