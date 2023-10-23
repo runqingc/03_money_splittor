@@ -42,6 +42,8 @@ public class BillController {
         double jmhToSsc = calculateJmhToSscAmount(theBills);
         double jmhToCrq = calculateJmhToCrqAmount(theBills);
 
+        String simplified = simplifyPayments(crqToSsc, jmhToSsc, jmhToCrq);
+
         String crq_ssc, jmh_ssc, jmh_crq;
         if(crqToSsc>=0){
             crq_ssc = "CRQ应该付给SSC的钱";
@@ -68,11 +70,12 @@ public class BillController {
         theModel.addAttribute("jmh_ssc", jmh_ssc);
         theModel.addAttribute("jmhToCrq", jmhToCrq);
         theModel.addAttribute("jmh_crq", jmh_crq);
+        theModel.addAttribute("simplified", simplified);
 
-        List<Bill> historyBills = billService.findByCompleteTrue(sort);
 
 
 //        add history bills
+        List<Bill> historyBills = billService.findByCompleteTrue(sort);
         theModel.addAttribute("historyBills", historyBills);
 
         return "bills/list-bills";
@@ -197,5 +200,11 @@ public class BillController {
             }
         }
         return totalAmount;
+    }
+
+    public static String simplifyPayments(double crqToSsc, double jmhToSsc, double jmhToCrq) {
+        return "这里还需要实现一个函数来简化以上计算结果： \n" +
+                "public static String simplifyPayments(double crqToSsc, double jmhToSsc, double jmhToCrq). \n" +
+                "它的返回值将会显示在这里";
     }
 }
