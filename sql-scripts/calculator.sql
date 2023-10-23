@@ -16,7 +16,7 @@ WITH
                            +
                            IFNULL((SELECT SUM(amount)/2
                                    FROM bill
-                                   WHERE complete is FALSE AND Payer = 'SSC' AND split_between = 'CRQ&SSC'),0)
+                                   WHERE complete is FALSE AND Payer = 'SSC' AND split_between = 'SSC&CRQ'),0)
                            +
                            IFNULL((SELECT SUM(amount)/3
                                    FROM bill
@@ -40,7 +40,7 @@ WITH
                        -
                            IFNULL((SELECT SUM(amount)/2
                                    FROM bill
-                                   WHERE complete is FALSE AND Payer = 'CRQ' AND split_between = 'CRQ&SSC'),0)
+                                   WHERE complete is FALSE AND Payer = 'CRQ' AND split_between = 'SSC&CRQ'),0)
                        -
                            IFNULL((SELECT SUM(amount)/3
                                    FROM bill
