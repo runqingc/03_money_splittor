@@ -18,7 +18,7 @@ public class BillController {
     @Value("Chose Payer,CRQ,JMH,SSC")
     private List<String> payers;
 
-    @Value("Chose Split between,CRQ,JMH,SSC,ALL,FOOD,RENT,SSC&CRQ,CRQ&JMH,SSC&JMH")
+    @Value("Chose Split between,CRQ,JMH,SSC,ALL,RENT,SSC&CRQ,CRQ&JMH,SSC&JMH")
     private List<String> splitBetweens;
 
     private BillService billService;
@@ -30,14 +30,49 @@ public class BillController {
     @GetMapping("/list")
     public String listBills(Model theModel){
 
+        // add unpaid bills
         Sort sort = Sort.by(Sort.Order.desc("billDate"));
 
         List<Bill> theBills = billService.findByCompleteFalse(sort);
 
         theModel.addAttribute("bills", theBills);
 
+        // calculate how to split the money
+        double crqToSsc = calculateCrqToSscAmount(theBills);
+        double jmhToSsc = calculateJmhToSscAmount(theBills);
+        double jmhToCrq = calculateJmhToCrqAmount(theBills);
+
+        String crq_ssc, jmh_ssc, jmh_crq;
+        if(crqToSsc>=0){
+            crq_ssc = "CRQ应该付给SSC的钱";
+        }else{
+            crq_ssc = "SSC应该付给CRQ的钱";
+            crqToSsc *= -1;
+        }
+        if(jmhToSsc>=0){
+            jmh_ssc="JMH应该付给SSC的钱";
+        }else{
+            jmh_ssc = "SSC应该付给JMH的钱";
+            jmhToSsc *=-1;
+        }
+        if(jmhToCrq>=0){
+            jmh_crq="JMH应该付给CRQ的钱";
+        }else{
+            jmh_crq="CRQ应该付给JMH的钱";
+            jmhToCrq*=-1;
+        }
+
+        theModel.addAttribute("crqToSsc", crqToSsc);
+        theModel.addAttribute("crq_ssc", crq_ssc);
+        theModel.addAttribute("jmhToSsc", jmhToSsc);
+        theModel.addAttribute("jmh_ssc", jmh_ssc);
+        theModel.addAttribute("jmhToCrq", jmhToCrq);
+        theModel.addAttribute("jmh_crq", jmh_crq);
+
         List<Bill> historyBills = billService.findByCompleteTrue(sort);
 
+
+//        add history bills
         theModel.addAttribute("historyBills", historyBills);
 
         return "bills/list-bills";
@@ -93,4 +128,74 @@ public class BillController {
         return "redirect:/bills/list";
     }
 
+
+    private static final double sscRent = 0.37;
+    private static final double crqRent = 0.32;
+    private static final double jmhRent = 0.31;
+
+    private double calculateCrqToSscAmount(List<Bill> bills){
+        double totalAmount = 0.0;
+        for (Bill bill : bills){
+            if(bill.getPayer().equals("CRQ")){
+                switch (bill.getSplitBetween()) {
+                    case "SSC" -> totalAmount -= bill.getAmount();
+                    case "SSC&CRQ", "SSC&JMH" -> totalAmount -= bill.getAmount() / 2;
+                    case "ALL" -> totalAmount -= bill.getAmount() / 3;
+                    case "RENT" -> totalAmount -= bill.getAmount() * sscRent;
+                }
+            }else if(bill.getPayer().equals("SSC")){
+                switch (bill.getSplitBetween()) {
+                    case "CRQ" -> totalAmount += bill.getAmount();
+                    case "SSC&CRQ", "CRQ&JMH" -> totalAmount += bill.getAmount() / 2;
+                    case "ALL" -> totalAmount += bill.getAmount() / 3;
+                    case "RENT" -> totalAmount += bill.getAmount() * crqRent;
+                }
+            }
+        }
+        return totalAmount;
+    }
+
+    private double calculateJmhToSscAmount(List<Bill> bills){
+        double totalAmount = 0.0;
+        for (Bill bill : bills){
+            if(bill.getPayer().equals("JMH")){
+                switch (bill.getSplitBetween()) {
+                    case "SSC" -> totalAmount -= bill.getAmount();
+                    case "SSC&CRQ", "SSC&JMH" -> totalAmount -= bill.getAmount() / 2;
+                    case "ALL" -> totalAmount -= bill.getAmount() / 3;
+                    case "RENT" -> totalAmount -= bill.getAmount() * sscRent;
+                }
+            }else if(bill.getPayer().equals("SSC")){
+                switch (bill.getSplitBetween()) {
+                    case "JMH" -> totalAmount += bill.getAmount();
+                    case "SSC&JMH", "CRQ&JMH" -> totalAmount += bill.getAmount() / 2;
+                    case "ALL" -> totalAmount += bill.getAmount() / 3;
+                    case "RENT" -> totalAmount += bill.getAmount() * jmhRent;
+                }
+            }
+        }
+        return totalAmount;
+    }
+
+    private double calculateJmhToCrqAmount(List<Bill> bills){
+        double totalAmount = 0.0;
+        for (Bill bill : bills){
+            if(bill.getPayer().equals("JMH")){
+                switch (bill.getSplitBetween()) {
+                    case "CRQ" -> totalAmount -= bill.getAmount();
+                    case "SSC&CRQ", "CRQ&JMH" -> totalAmount -= bill.getAmount() / 2;
+                    case "ALL" -> totalAmount -= bill.getAmount() / 3;
+                    case "RENT" -> totalAmount -= bill.getAmount() * crqRent;
+                }
+            }else if(bill.getPayer().equals("CRQ")){
+                switch (bill.getSplitBetween()) {
+                    case "JMH" -> totalAmount += bill.getAmount();
+                    case "SSC&JMH", "CRQ&JMH" -> totalAmount += bill.getAmount() / 2;
+                    case "ALL" -> totalAmount += bill.getAmount() / 3;
+                    case "RENT" -> totalAmount += bill.getAmount() * jmhRent;
+                }
+            }
+        }
+        return totalAmount;
+    }
 }
