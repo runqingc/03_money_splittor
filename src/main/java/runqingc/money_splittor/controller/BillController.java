@@ -42,7 +42,7 @@ public class BillController {
         double jmhToSsc = calculateJmhToSscAmount(theBills);
         double jmhToCrq = calculateJmhToCrqAmount(theBills);
 
-        String simplified = simplifyPayments(crqToSsc, jmhToSsc, jmhToCrq);
+        String simplified = simplifyPayments(crqToSsc, -jmhToSsc, jmhToCrq);
 
         String crq_ssc, jmh_ssc, jmh_crq;
         if(crqToSsc>=0){
@@ -202,9 +202,47 @@ public class BillController {
         return totalAmount;
     }
 
-    public static String simplifyPayments(double crqToSsc, double jmhToSsc, double jmhToCrq) {
-        return "这里还需要实现一个函数来简化以上计算结果： \n" +
-                "public static String simplifyPayments(double crqToSsc, double jmhToSsc, double jmhToCrq). \n" +
-                "它的返回值将会显示在这里";
+    public static String simplifyPayments(double crqToSsc, double sscToJmh, double jmhToCrq) {
+        // Case1: remove crqToSsc
+        double sumTransferred = Math.abs(sscToJmh-crqToSsc)+Math.abs(jmhToCrq-crqToSsc);
+        String ret = getGeneratedResult(0, sscToJmh-crqToSsc, jmhToCrq-crqToSsc);
+        // Case2: remove sscToJmh
+        if(Math.abs(crqToSsc-sscToJmh)+Math.abs(jmhToCrq-sscToJmh)<sumTransferred){
+            sumTransferred = Math.abs(crqToSsc-sscToJmh)+Math.abs(jmhToCrq-sscToJmh);
+            ret = getGeneratedResult(crqToSsc-sscToJmh, 0, jmhToCrq-sscToJmh);
+        }
+        // Case3: remove jmhToCrq
+        if(Math.abs(crqToSsc-jmhToCrq)+Math.abs(sscToJmh-jmhToCrq)<sumTransferred){
+            ret = getGeneratedResult(crqToSsc-jmhToCrq, sscToJmh-jmhToCrq, 0);
+        }
+        return "以上结果等价于："+ret;
     }
+    public static String getGeneratedResult(double crqToSsc, double sscToJmh, double jmhToCrq){
+        String ret = "";
+        if(crqToSsc > 0){
+            ret += "CRQ应该付给SSC的钱：" + String.format("%.2f", crqToSsc) + "。 ";
+        }else if(crqToSsc < 0){
+            ret += "SSC应该付给CRQ的钱：" + String.format("%.2f", -crqToSsc) + "。 ";
+        }
+        if(sscToJmh > 0){
+            ret += "SSC应该付给JMH的钱：" + String.format("%.2f", sscToJmh) + "。 ";
+        }else if(sscToJmh < 0){
+            ret += "JMH应该付给SSC的钱：" + String.format("%.2f", -sscToJmh) + "。 ";
+        }
+        if(jmhToCrq > 0){
+            ret += "JMH应该付给CRQ的钱：" + String.format("%.2f", jmhToCrq) + "。 ";
+        }else if(jmhToCrq < 0){
+            ret += "CRQ应该付给JMH的钱：" + String.format("%.2f", -jmhToCrq) + "。 ";
+        }
+        return ret.isEmpty() ? "谁也不欠谁钱。" : ret;
+    }
+
 }
+
+
+
+
+
+
+
+
