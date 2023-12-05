@@ -1,21 +1,19 @@
 # 03_money_splittor
 
 Here' s the main entrance of the billing system. It displays the current bill, 
-history bill and calculation result. 
+history bill and calculation result. For the sake of privacy, I have blurred some data.
+
 
 ![Usage.png](src%2Fmain%2Fresources%2Fimg%2FUsage.png)
 
 
 # 03_money_splittor
 
-Here' s the main entrance of the billing system. It displays the current bill,
-history bill and calculation result. For the sake of privacy, I have blurred some data.
-
-
-
 #### 1. Create New Entry
-![Bill_List_IMG.png](src%2Fmain%2Fresources%2Fimg%2FBill_List_IMG.png)
+
 Click the blue "New" button below the current statement to create a new entry.
+
+![Bill_List_IMG.png](src%2Fmain%2Fresources%2Fimg%2FBill_List_IMG.png)
 
 After filling in the respective fields, click confirm to complete the creation of the new entry. By default, "Settled" is set to "No," and the "Date of Entry" is set to the current time.
 
@@ -52,13 +50,9 @@ Click the blue "Modify" button on the right side of the entry. Modification will
 
 <img src="src/main/resources/img/Update.png" alt="Update.png" width="50%"/>
 
-
-
 #### 2. 删除条目
 
 点击账单右侧的红色按钮"删除"。删除前会提示用户，是否确认删除。此项操作不可撤销。
-
-
 
 #### 3. 修改条目
 
